@@ -2,7 +2,7 @@ import {StatusBar} from 'expo-status-bar'
 import React from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
 import {Camera} from 'expo-camera'
-import AsyncStorage from '@react-native-community/async-storage';
+//import AsyncStorage from '@react-native-community/async-storage';
 
 // Amplify Auth
 import { withAuthenticator } from 'aws-amplify-react-native';
@@ -66,18 +66,6 @@ function App() {
     }
   }
 
-  const [value, setValue] = useState('checking value...');
-  useEffect(() => {
-  let isMounted = true;
-  fetchValue().then(() => {
-      if(isMounted ){
-      setValue("done!"); // no more error
-      } 
-    });
-   return () => {
-    isMounted = false;
-    };
-  }, []);
   
   return (
     <View style={styles.container}>
