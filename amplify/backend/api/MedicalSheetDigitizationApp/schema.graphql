@@ -1,0 +1,97 @@
+type Drug @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  drugID: ID
+  dName: String
+  dType: String
+  TimeBasedIndicatorsIntras: [TimeBasedIndicatorsIntra] @manyToMany(relationName: "DrugTimeBasedIndicatorsIntra")
+}
+
+type TimeBasedIndicatorsAnes @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  timeStamp: AWSDateTime
+  Record: Record @hasOne
+}
+
+type Record @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  submissionTime: AWSDateTime
+  notes: String
+  resolution: Boolean
+  IntraoperativeRecord: IntraoperativeRecord @hasOne
+  practitionerID: ID! @index(name: "byPractitioner")
+}
+
+type IntraoperativeRecord @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  EyeProtection: Boolean
+  Warming: Boolean
+  TEDStockings: Boolean
+  SafetyChecklist: Boolean
+  EasyVentilation: Boolean
+  VertilizationWAdjust: Boolean
+  DifficultVentilation: Boolean
+  TimeBasedIndicators: [TimeBasedIndicatorsIntra] @hasMany(indexName: "byIntraoperativeRecord", fields: ["id"])
+}
+
+type TimeBasedIndicatorsIntra @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  timeStamp: AWSTimestamp!
+  sysBP: Int
+  diaBP: Int
+  MAP: Float
+  temp: Float
+  tidalVolume: Float
+  SpO2: Float
+  EICO2: Float
+  FlO2: Float
+  Glurasis: Float
+  drugDosages: Float
+  bloodlessFhb: Float
+  intraoperativerecordID: ID! @index(name: "byIntraoperativeRecord")
+  drugs: [Drug] @manyToMany(relationName: "DrugTimeBasedIndicatorsIntra")
+}
+
+type Operation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  datetime: AWSDateTime
+  check_in_date: AWSDate
+  check_out_date: AWSDate
+}
+
+type Practitioner @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  first_name: String
+  last_name: String
+  gender: String
+  numPatients: Int
+  hospitalID: ID! @index(name: "byHospital")
+  Records: [Record] @hasMany(indexName: "byPractitioner", fields: ["id"])
+}
+
+type Nurse @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  first_name: String
+  last_name: String
+  gender: String
+  numPatients: Int
+}
+
+type Patient @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  first_name: String
+  last_name: String
+  age: Int
+  gender: String
+  hospitalID: ID! @index(name: "byHospital")
+}
+
+type Hospital @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  region: String
+  hospital_type: String
+  numPractitioners: Int
+  numPatients: Int
+  Patients: [Patient] @hasMany(indexName: "byHospital", fields: ["id"])
+  Practitioners: [Practitioner] @hasMany(indexName: "byHospital", fields: ["id"])
+}
+ 

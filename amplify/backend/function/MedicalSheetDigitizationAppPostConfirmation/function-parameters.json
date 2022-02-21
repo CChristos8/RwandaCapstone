@@ -1,0 +1,18 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group"
+  ],
+  "parentResource": "MedicalSheetDigitizationApp",
+  "functionName": "MedicalSheetDigitizationAppPostConfirmation",
+  "resourceName": "MedicalSheetDigitizationAppPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "MedicalSheetDigitizationAppPostConfirmation",
+  "skipEdit": true,
+  "GROUP": "staff",
+  "enableCors": false
+}

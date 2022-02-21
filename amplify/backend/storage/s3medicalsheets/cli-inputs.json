@@ -1,0 +1,11 @@
+{
+  "resourceName": "s3medicalsheets",
+  "bucketName": "medical-sheets",
+  "policyUUID": "540df79a",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ]
+}

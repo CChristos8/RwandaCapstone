@@ -1,0 +1,32 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-medicalsheetdigitiza-staging-41132-authRole",
+      "UnauthRoleArn": "arn:aws:iam::191214792052:role/amplify-medicalsheetdigitiza-staging-41132-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::191214792052:role/amplify-medicalsheetdigitiza-staging-41132-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-medicalsheetdigitiza-staging-41132-deployment",
+      "UnauthRoleName": "amplify-medicalsheetdigitiza-staging-41132-unauthRole",
+      "StackName": "amplify-medicalsheetdigitiza-staging-41132",
+      "StackId": "arn:aws:cloudformation:us-east-1:191214792052:stack/amplify-medicalsheetdigitiza-staging-41132/36522d10-7f27-11ec-9682-0a6a01519159",
+      "AmplifyAppId": "d2hz8ep435r64b",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-medicalsheetdigitiza-staging-41132-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "MedicalSheetDigitizationApp": {}
+      },
+      "function": {
+        "MedicalSheetDigitizationAppPostConfirmation": {
+          "GROUP": "staff",
+          "deploymentBucketName": "amplify-medicalsheetdigitiza-staging-41132-deployment",
+          "s3Key": "amplify-builds/MedicalSheetDigitizationAppPostConfirmation-734c764e577143304152-build.zip"
+        },
+        "AdminQueries1e4ac0c4": {
+          "deploymentBucketName": "amplify-medicalsheetdigitiza-staging-41132-deployment",
+          "s3Key": "amplify-builds/AdminQueries1e4ac0c4-4d79766856656e68696a-build.zip"
+        }
+      }
+    }
+  }
+}
