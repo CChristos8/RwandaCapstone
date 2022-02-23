@@ -1,38 +1,21 @@
 {
   "auth": {
-    "MedicalSheetDigitizationApp": {
+    "medicalsheetdigitizab4dd08dd": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "MedicalSheetDigitizationAppPostConfirmation",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
+      "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "signupAttributes": [
-          "PREFERRED_USERNAME",
-          "GIVEN_NAME",
-          "FAMILY_NAME",
-          "EMAIL",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
-          ]
+          "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -42,22 +25,6 @@
           "EMAIL"
         ]
       }
-    },
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "MedicalSheetDigitizationApp",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ]
-        }
-      ]
     }
   },
   "storage": {
@@ -87,45 +54,9 @@
           ]
         }
       }
-    },
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "MedicalSheetDigitizationApp",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQueries1e4ac0c4",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
     }
   },
   "function": {
-    "AdminQueries1e4ac0c4": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "MedicalSheetDigitizationApp",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    },
     "MedicalSheetDigitizationAppPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",

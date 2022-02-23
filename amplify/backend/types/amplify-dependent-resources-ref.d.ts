@@ -1,18 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "MedicalSheetDigitizationApp": {
+        "medicalsheetdigitizab4dd08dd": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string",
-            "CreatedSNSRole": "string"
-        },
-        "userPoolGroups": {
-            "developerGroupRole": "string",
-            "staffGroupRole": "string"
+            "AppClientID": "string"
         }
     },
     "storage": {
@@ -26,20 +21,9 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
-        },
-        "AdminQueries": {
-            "RootUrl": "string",
-            "ApiName": "string",
-            "ApiId": "string"
         }
     },
     "function": {
-        "AdminQueries1e4ac0c4": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
         "MedicalSheetDigitizationAppPostConfirmation": {
             "Name": "string",
             "Arn": "string",

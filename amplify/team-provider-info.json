@@ -13,19 +13,15 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-medicalsheetdigitiza-staging-41132-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "MedicalSheetDigitizationApp": {}
-      },
       "function": {
         "MedicalSheetDigitizationAppPostConfirmation": {
           "GROUP": "staff",
           "deploymentBucketName": "amplify-medicalsheetdigitiza-staging-41132-deployment",
           "s3Key": "amplify-builds/MedicalSheetDigitizationAppPostConfirmation-734c764e577143304152-build.zip"
-        },
-        "AdminQueries1e4ac0c4": {
-          "deploymentBucketName": "amplify-medicalsheetdigitiza-staging-41132-deployment",
-          "s3Key": "amplify-builds/AdminQueries1e4ac0c4-4d79766856656e68696a-build.zip"
         }
+      },
+      "auth": {
+        "medicalsheetdigitizab4dd08dd": {}
       }
     }
   }

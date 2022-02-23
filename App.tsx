@@ -297,4 +297,4 @@ const CameraPreview = ({photo, retakePicture, savePhoto}: any) => {
   )
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, true);
