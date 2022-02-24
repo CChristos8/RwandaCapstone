@@ -2,17 +2,23 @@ import {StatusBar} from 'expo-status-bar'
 import React from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
 import {Camera} from 'expo-camera'
+import { useState } from 'react'
+import Amplify, { photoPlaceholder, Storage } from 'aws-amplify'
+import ImageUploading, { ImageListType } from "react-images-uploading";
 //import AsyncStorage from '@react-native-community/async-storage';
-
+import {launchImageLibrary} from 'react-native-image-picker';
 // Amplify Auth
 import { withAuthenticator } from 'aws-amplify-react-native';
-import Amplify from 'aws-amplify';
+//import Amplify from 'aws-amplify';
+
 // Get the aws resources configuration parameters
-import awsconfig from './src/aws-exports'; // if you are using Amplify CLI
+import config from './src/aws-exports'; // if you are using Amplify CLI
+Amplify.configure(config)
+import s3 from 'aws-sdk/clients/s3'
 
-Amplify.configure(awsconfig);
-
-
+//import '@aws-amplify/ui-react/styles.css'
+//import { AmplifyProvider } from '@aws-amplify/ui-react'
+//import { withAuthenticator } from '@aws-amplify/ui-react';
 
 
 let camera: Camera
@@ -23,6 +29,8 @@ function App() {
   const [capturedImage, setCapturedImage] = React.useState<any>(null)
   const [cameraType, setCameraType] = React.useState(Camera.Constants.Type.back)
   const [flashMode, setFlashMode] = React.useState('off')
+  const [progressText, setProgressText] = useState('');
+  const [isLoading, setisLoading] = useState(false);
 
   const __startCamera = async () => {
     const {status} = await Camera.requestCameraPermissionsAsync()
@@ -36,28 +44,39 @@ function App() {
   const __takePicture = async () => {
     try{
       const photo: any = await camera.takePictureAsync()
+    //uploadResource(photo)
     console.log(photo)
     setPreviewVisible(true)
     //setStartCamera(false)
     setCapturedImage(photo)
+    const capturedImage = photo
+    //console.log(capturedImage)
     }
-    catch(error) {  console.error(error) }
+    catch(error) {console.error(error) }
   }
-  const __savePhoto = () => { console.log}
+
+
   const __retakePicture = () => {
+    console.log(capturedImage)
     setCapturedImage(null)
     setPreviewVisible(false)
     __startCamera()
+    //console.log(capturedImage)
   }
   const __handleFlashMode = () => {
     if (flashMode === 'on') {
-      setFlashMode('off')
+      sretFlashMode('off')
     } else if (flashMode === 'off') {
       setFlashMode('on')
     } else {
       setFlashMode('auto')
     }
   }
+  const savePhoto = () => {
+    uploadResource(capturedImage)
+    //console.log(capturedImage)
+  }
+  
   const __switchCamera = () => {
     if (cameraType === 'back') {
       setCameraType('front')
@@ -65,7 +84,48 @@ function App() {
       setCameraType('back')
     }
   }
-
+  const fetchResourceFromURI = async uri => {
+    const response = await fetch(uri);
+    console.log(response);
+    const blob = await response.blob();
+    return blob;
+  }
+  const uploadResource = async photo => {
+    if (isLoading) return;
+    setisLoading(true);
+    const img = await fetchResourceFromURI(photo.uri);
+    return Storage.put(photo.uri, img, {
+      level: 'public',
+      contentType: photo.type,
+      progressCallback(uploadProgress) {
+        setProgressText(
+          `Progress: ${Math.round(
+            (uploadProgress.loaded / uploadProgress.total) * 100,
+          )} %`,
+        );
+        console.log(
+          `Progress: ${uploadProgress.loaded}/${uploadProgress.total}`,
+        );
+      },
+    })
+      .then(res => {
+        setProgressText('Upload Done: 100%');
+        //setAsset(null);
+        setisLoading(false);
+        Storage.get(res.key)
+          .then(result => console.log(result))
+          .catch(err => {
+            setProgressText('Upload Error');
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        setisLoading(false);
+        setProgressText('Upload Error');
+        console.log(err);
+      });
+      
+  }
   
   return (
     <View style={styles.container}>
@@ -77,7 +137,7 @@ function App() {
           }}
         >
           {previewVisible && capturedImage ? (
-            <CameraPreview photo={capturedImage} savePhoto={__savePhoto} retakePicture={__retakePicture} />
+            <CameraPreview photo={capturedImage} savePhoto={savePhoto} retakePicture={__retakePicture} />
           ) : (
             <Camera
               type={cameraType}
@@ -297,4 +357,6 @@ const CameraPreview = ({photo, retakePicture, savePhoto}: any) => {
   )
 }
 
-export default withAuthenticator(App);
+
+export default withAuthenticator(App,true);
+

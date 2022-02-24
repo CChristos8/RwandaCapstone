@@ -14,7 +14,9 @@
     },
     "categories": {
       "auth": {
-        "MedicalSheetDigitizationApp": {}
+        "MedicalSheetDigitizationApp": {},
+        "true": {},
+        "medicalsheetdigitizab4dd08dd": {}
       },
       "function": {
         "MedicalSheetDigitizationAppPostConfirmation": {
