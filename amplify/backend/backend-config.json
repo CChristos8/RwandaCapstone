@@ -28,10 +28,20 @@
     }
   },
   "storage": {
-    "s3medicalsheets": {
+    "imagestorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "MedicalSheetDigitizationAppPostConfirmation",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
     }
   },
   "api": {

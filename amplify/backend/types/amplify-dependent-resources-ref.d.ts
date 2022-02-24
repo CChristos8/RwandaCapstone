@@ -11,7 +11,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "s3medicalsheets": {
+        "imagestorage": {
             "BucketName": "string",
             "Region": "string"
         }
