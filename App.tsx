@@ -65,7 +65,7 @@ function App() {
   }
   const __handleFlashMode = () => {
     if (flashMode === 'on') {
-      sretFlashMode('off')
+      setFlashMode('off')
     } else if (flashMode === 'off') {
       setFlashMode('on')
     } else {
