@@ -20,6 +20,7 @@ Amplify.configure(config)
 
 let camera: Camera
 
+
 function App() {
   const [startCamera, setStartCamera] = React.useState(false)
   const [previewVisible, setPreviewVisible] = React.useState(false)
@@ -42,7 +43,7 @@ function App() {
     try{
       const photo: any = await camera.takePictureAsync()
     //uploadResource(photo)
-    console.log(photo)
+    //console.log(photo)
     setPreviewVisible(true)
     //setStartCamera(false)
     setCapturedImage(photo)
@@ -54,7 +55,7 @@ function App() {
 
 
   const __retakePicture = () => {
-    console.log(capturedImage)
+    //console.log(capturedImage)
     setCapturedImage(null)
     setPreviewVisible(false)
     __startCamera()
@@ -71,6 +72,8 @@ function App() {
   }
   const savePhoto = () => {
     uploadResource(capturedImage)
+    setCapturedImage(null)
+    setPreviewVisible(false)
     //console.log(capturedImage)
   }
   
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const CameraPreview = ({photo, retakePicture, savePhoto}: any) => {
+const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => {
   console.log('sdsfds', photo)
   return (
     <View
@@ -310,7 +313,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto}: any) => {
             }}
           >
             <TouchableOpacity
-              onPress={retakePicture}
+              onPress={retakePicture && _takePicture}
               style={{
                 width: 130,
                 height: 40,
