@@ -4,9 +4,7 @@ import {StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image}
 import {Camera} from 'expo-camera'
 import { useState } from 'react'
 import Amplify, { photoPlaceholder, Storage } from 'aws-amplify'
-import ImageUploading, { ImageListType } from "react-images-uploading";
 //import AsyncStorage from '@react-native-community/async-storage';
-import {launchImageLibrary} from 'react-native-image-picker';
 // Amplify Auth
 import { withAuthenticator } from 'aws-amplify-react-native';
 //import Amplify from 'aws-amplify';
@@ -14,7 +12,6 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 // Get the aws resources configuration parameters
 import config from './src/aws-exports'; // if you are using Amplify CLI
 Amplify.configure(config)
-import s3 from 'aws-sdk/clients/s3'
 
 //import '@aws-amplify/ui-react/styles.css'
 //import { AmplifyProvider } from '@aws-amplify/ui-react'
@@ -357,6 +354,4 @@ const CameraPreview = ({photo, retakePicture, savePhoto}: any) => {
   )
 }
 
-
-export default withAuthenticator(App,true);
-
+export default withAuthenticator(App, true);
