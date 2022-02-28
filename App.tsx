@@ -313,7 +313,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => 
             }}
           >
             <TouchableOpacity
-              onPress={retakePicture && _takePicture}
+              onPress={retakePicture}
               style={{
                 width: 130,
                 height: 40,
