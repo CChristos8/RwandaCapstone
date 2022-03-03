@@ -1,6 +1,6 @@
 {
   "auth": {
-    "medicalsheetdigitizab4dd08dd": {
+    "medicalsheetdigitiza741bdf0e": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

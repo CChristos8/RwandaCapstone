@@ -1,4 +1,4 @@
-import {StatusBar} from 'expo-status-bar'
+import {setStatusBarTranslucent, StatusBar} from 'expo-status-bar'
 import React from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
 import {Camera} from 'expo-camera'
@@ -11,7 +11,17 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 
 // Get the aws resources configuration parameters
 import config from './src/aws-exports'; // if you are using Amplify CLI
-Amplify.configure(config)
+import ImageUploadS3 from './components/ImageUploadS3'
+
+//Amplify.configure(config)
+
+//Try to get rid of unhandled promise rejection
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 
 //import '@aws-amplify/ui-react/styles.css'
 //import { AmplifyProvider } from '@aws-amplify/ui-react'
@@ -242,12 +252,13 @@ function App() {
             alignItems: 'center'
           }}
         >
+          
           <TouchableOpacity
             onPress={__startCamera}
             style={{
               width: 130,
               borderRadius: 4,
-              backgroundColor: '#14274e',
+              backgroundColor: '#14git 274e',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
@@ -264,6 +275,9 @@ function App() {
               Take picture
             </Text>
           </TouchableOpacity>
+          <View style={{flex: 1}}>
+				      <ImageUploadS3 />
+			    </View>
         </View>
       )}
 
@@ -357,4 +371,4 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => 
   )
 }
 
-export default withAuthenticator(App, true);
+export default withAuthenticator(App, {includeGreetings: true});

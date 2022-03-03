@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "medicalsheetdigitizab4dd08dd_identitypool_b4dd08dd",
+    "identityPoolName": "medicalsheetdigitiza741bdf0e_identitypool_741bdf0e",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "medicab4dd08dd",
-    "userPoolName": "medicalsheetdigitizab4dd08dd_userpool_b4dd08dd",
+    "resourceNameTruncated": "medica741bdf0e",
+    "userPoolName": "medicalsheetdigitiza741bdf0e_userpool_741bdf0e",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "medicab4dd08dd_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "medica741bdf0e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b4dd08dd",
-    "resourceName": "medicalsheetdigitizab4dd08dd",
+    "sharedId": "741bdf0e",
+    "resourceName": "medicalsheetdigitiza741bdf0e",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
