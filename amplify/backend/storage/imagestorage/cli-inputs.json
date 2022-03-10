@@ -1,7 +1,7 @@
 {
   "resourceName": "imagestorage",
-  "policyUUID": "f71132b6",
-  "bucketName": "imagestorage",
+  "policyUUID": "061a383f",
+  "bucketName": "medsheetsapp64ac0df7bb1d40299a778cf0f86a68fa",
   "storageAccess": "auth",
   "guestAccess": [],
   "authAccess": [
@@ -9,6 +9,6 @@
     "READ",
     "DELETE"
   ],
-  "triggerFunction": "MedicalSheetDigitizationAppPostConfirmation",
+  "triggerFunction": "S3Trigger5fffb20b",
   "groupAccess": {}
 }

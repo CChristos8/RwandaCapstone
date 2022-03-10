@@ -28,6 +28,7 @@ Amplify.configure({
 });
 
 import uploadResource from './components/uploadResource';
+import uploadImageToS3 from './components/ImageUploadS3';
 
 //import '@aws-amplify/ui-react/styles.css'
 //import { AmplifyProvider } from '@aws-amplify/ui-react'
@@ -91,16 +92,7 @@ function App() {
     }
   }
 const savePhoto = () => {
-//function savePhoto({photo}){
-  var percentage = uploadResource(capturedImage, progressText, setProgressText)
-  //  // setCapturedImage(null)
-  //   //setPreviewVisible(false)
-  //   //console.log(capturedImage)a
-  console.log("Back")
-  console.log("in save" , progressText)
-  //   var percentage = 0.9
-  //   return(percentage)
-  return percentage
+  
 }
     
   
@@ -357,7 +349,6 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_pr
                 borderRadius: 4
               }}
             >
-            <Progress.Bar progress={percentage} width={100} />
               <Text
                 style={{
                   color: '#fff',

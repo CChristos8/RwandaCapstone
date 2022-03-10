@@ -1,15 +1,13 @@
 {
   "auth": {
-    "medicalsheetdigitiza741bdf0e": {
+    "medsheetsapp9180d3a5": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
+        "usernameAttributes": [],
         "signupAttributes": [
           "EMAIL"
         ],
@@ -27,6 +25,13 @@
       }
     }
   },
+  "function": {
+    "S3Trigger5fffb20b": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
   "storage": {
     "imagestorage": {
       "service": "S3",
@@ -34,7 +39,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "MedicalSheetDigitizationAppPostConfirmation",
+          "resourceName": "S3Trigger5fffb20b",
           "attributes": [
             "Name",
             "Arn",
@@ -42,35 +47,6 @@
           ]
         }
       ]
-    }
-  },
-  "api": {
-    "MedicalSheetDigitizationApp": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
-            }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ]
-        }
-      }
-    }
-  },
-  "function": {
-    "MedicalSheetDigitizationAppPostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   }
 }
