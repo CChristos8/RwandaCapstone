@@ -42,7 +42,7 @@ export default class ImageUploadS3 extends React.Component {
 	uploadImageToS3 = async uri => {
 		const response = await fetch(uri)
 		const blob = await response.blob() // format the data for images 
-		const folder = 'images'
+		
 		// generate a unique random name for every single image 'fixed length'
 		//const [password] = useState(0)
 		//var name = prompt("What is your name", "Type you name here");
@@ -73,9 +73,12 @@ export default class ImageUploadS3 extends React.Component {
 			//console.log("selection" , selection)
 			if (selection) {
 				this.setState({ userSelection: selection });}
-			
-			
-		const filename = selection + '.jpeg' //Math.random().toString(18).slice(3).substr(0, 10) + '.jpeg'
+		var date = new Date().getDate();
+		var month = new Date().getMonth() + 1;
+		var year = new Date().getFullYear();
+		const folder = 'images' + "/" +selection.slice(0,-1)	
+		//filename will have the patientIdentifier_A or B_date-month-year
+		const filename = selection + "-" + date + "-" + month + "-" + year+ '.jpeg' //Math.random().toString(18).slice(3).substr(0, 10) + '.jpeg'
 		console.log("filename" , filename)
 		await Storage.put(folder + '/' + filename, blob, {
 			progressCallback(progress) {

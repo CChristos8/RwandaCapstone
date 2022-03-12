@@ -92,10 +92,11 @@ function App() {
     }
   }
 const savePhoto = () => {
-  
+//<ImageUploadS3 
+ //temp = {this.uploadImageToS3}/>
 }
     
-  
+
   const __switchCamera = () => {
     if (cameraType === 'back') {
       setCameraType('front')
@@ -340,7 +341,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_pr
             
             <TouchableOpacity
               //onPress={savePhoto && update_progress}
-              onPress={savePhoto} //() => { savePhoto; update_progress }}  
+              onPress={uploadImageToS3} //() => { savePhoto; update_progress }}  
               style={{
                 width: 130,
                 height: 40,
