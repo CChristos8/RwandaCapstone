@@ -7,7 +7,8 @@ import {
 	Image,
 	Dimensions,
 	FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from 'react-native'
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from '@expo/vector-icons';
@@ -48,6 +49,7 @@ export default class ImageUploadS3 extends React.Component {
 				this.fetchImages('images/', { level: "public" })
 			})
 			.catch(err => console.log(err))
+		Alert.alert("Image was successfully uploaded!")
 	}
 
 	fetchImages = async (path, access) => {
@@ -63,7 +65,7 @@ export default class ImageUploadS3 extends React.Component {
 				await this.getImagesUri(resModified) // (data)
 				// Store the up to date data in the allImages array
 				this.setState({ allImages: resModified })
-				console.log('allImages: ', this.state.allImages)
+				//console.log('allImages: ', this.state.allImages)
 			})
 			.catch(err => console.log(err))
 	}
@@ -126,6 +128,7 @@ export default class ImageUploadS3 extends React.Component {
 		await Storage.remove(name)
 			.then(result => console.log('Deleted', result))
 			.catch(err => console.log(err));
+		Alert.alert('Photo was Deleted Successfully. Refesh your feed!')
 	}
 
 	render() {
