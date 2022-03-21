@@ -1,14 +1,18 @@
 import {setStatusBarTranslucent, StatusBar} from 'expo-status-bar'
 import React from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
+
+import { StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
 import {Camera} from 'expo-camera'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Amplify, { photoPlaceholder, Storage } from 'aws-amplify'
+//import ProgressBar from './node_modules/react-native-progress/Bar'
+import * as Progress from 'react-native-progress';
+//import { ProgressBar } from "./node_modules/react-bootstrap";
 //import AsyncStorage from '@react-native-community/async-storage';
 // Amplify Auth
 import { withAuthenticator } from 'aws-amplify-react-native';
 //import Amplify from 'aws-amplify';
-
+//import progress_bar from './components/progressBar'
 // Get the aws resources configuration parameters
 import config from './src/aws-exports'; // if you are using Amplify CLI
 import ImageUploadS3 from './components/ImageUploadS3'
@@ -22,6 +26,9 @@ Amplify.configure({
     disabled: true,
   },
 });
+
+import uploadResource from './components/uploadResource';
+import uploadImageToS3 from './components/ImageUploadS3';
 
 //import '@aws-amplify/ui-react/styles.css'
 //import { AmplifyProvider } from '@aws-amplify/ui-react'
@@ -39,6 +46,8 @@ function App() {
   const [flashMode, setFlashMode] = React.useState('off')
   const [progressText, setProgressText] = useState('');
   const [isLoading, setisLoading] = useState(false);
+  const [percentage, setPercentage] = useState(0);
+  
 
   const __startCamera = async () => {
     const {status} = await Camera.requestCameraPermissionsAsync()
@@ -49,6 +58,8 @@ function App() {
       Alert.alert('Access denied')
     }
   }
+
+
   const __takePicture = async () => {
     try{
       const photo: any = await camera.takePictureAsync()
@@ -80,13 +91,12 @@ function App() {
       setFlashMode('auto')
     }
   }
-  const savePhoto = () => {
-    uploadResource(capturedImage)
-    setCapturedImage(null)
-    setPreviewVisible(false)
-    //console.log(capturedImage)
-  }
-  
+const savePhoto = () => {
+//<ImageUploadS3 
+ //temp = {this.uploadImageToS3}/>
+}
+    
+
   const __switchCamera = () => {
     if (cameraType === 'back') {
       setCameraType('front')
@@ -94,50 +104,28 @@ function App() {
       setCameraType('back')
     }
   }
-  const fetchResourceFromURI = async uri => {
-    const response = await fetch(uri);
-    console.log(response);
-    const blob = await response.blob();
-    return blob;
-  }
-  const uploadResource = async photo => {
-    if (isLoading) return;
-    setisLoading(true);
-    const img = await fetchResourceFromURI(photo.uri);
-    return Storage.put(photo.uri, img, {
-      level: 'public',
-      contentType: photo.type,
-      progressCallback(uploadProgress) {
-        setProgressText(
-          `Progress: ${Math.round(
-            (uploadProgress.loaded / uploadProgress.total) * 100,
-          )} %`,
-        );
-        console.log(
-          `Progress: ${uploadProgress.loaded}/${uploadProgress.total}`,
-        );
-      },
-    })
-      .then(res => {
-        setProgressText('Upload Done: 100%');
-        //setAsset(null);
-        setisLoading(false);
-        Storage.get(res.key)
-          .then(result => console.log(result))
-          .catch(err => {
-            setProgressText('Upload Error');
-            console.log(err);
-          });
-      })
-      .catch(err => {
-        setisLoading(false);
-        setProgressText('Upload Error');
-        console.log(err);
-      });
-      
-  }
+  // const fetchResourceFromURI = async uri => {
+  //   const response = await fetch(uri);
+  //   console.log(response);
+  //   const blob = await response.blob();
+  //   return blob;
+  // }
+
+
+  // const uploadResource = async photo => {
+  //   var percentage = 0
+  //   if (isLoading) return;
+  //   setisLoading(true);
+  //   const img = await fetchResourceFromURI(photo.uri);
+  //   console.log("befoire"),
+  //   console.log(img),
+
+  //   uploadResource
+  //   console.log("after")
+  // }
   
   return (
+    <>
     <View style={styles.container}>
       {startCamera ? (
         <View
@@ -265,6 +253,7 @@ function App() {
               height: 40
             }}
           >
+            
             <Text
               style={{
                 color: '#fff',
@@ -283,6 +272,7 @@ function App() {
 
       <StatusBar style="auto" />
     </View>
+    </> 
   )
 }
 
@@ -295,8 +285,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => {
+
+const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_progress}: any) => {
   console.log('sdsfds', photo)
+  const percentage =.1
   return (
     <View
       style={{
@@ -336,6 +328,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => 
                 borderRadius: 4
               }}
             >
+              
               <Text
                 style={{
                   color: '#fff',
@@ -345,8 +338,10 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => 
                 Re-take
               </Text>
             </TouchableOpacity>
+            
             <TouchableOpacity
-              onPress={savePhoto}
+              //onPress={savePhoto && update_progress}
+              onPress={uploadImageToS3} //() => { savePhoto; update_progress }}  
               style={{
                 width: 130,
                 height: 40,
@@ -365,10 +360,14 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture}: any) => 
               </Text>
             </TouchableOpacity>
           </View>
+          
         </View>
+        
       </ImageBackground>
+      
     </View>
-  )
+    
+  ) 
 }
 
 export default withAuthenticator(App, {includeGreetings: true});

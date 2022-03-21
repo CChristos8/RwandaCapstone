@@ -1,4 +1,28 @@
 {
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-medsheetsapp-dev-164126-authRole",
+      "UnauthRoleArn": "arn:aws:iam::191214792052:role/amplify-medsheetsapp-dev-164126-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::191214792052:role/amplify-medsheetsapp-dev-164126-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-medsheetsapp-dev-164126-deployment",
+      "UnauthRoleName": "amplify-medsheetsapp-dev-164126-unauthRole",
+      "StackName": "amplify-medsheetsapp-dev-164126",
+      "StackId": "arn:aws:cloudformation:us-east-1:191214792052:stack/amplify-medsheetsapp-dev-164126/2e6048c0-9d96-11ec-96b3-12e41d5181d5",
+      "AmplifyAppId": "d2k5amxowlyerw"
+    },
+    "categories": {
+      "auth": {
+        "medsheetsapp9180d3a5": {}
+      },
+      "function": {
+        "S3Trigger5fffb20b": {
+          "deploymentBucketName": "amplify-medsheetsapp-dev-164126-deployment",
+          "s3Key": "amplify-builds/S3Trigger5fffb20b-5048477065674a5a5071-build.zip"
+        }
+      }
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-medicalsheetdigitiza-staging-41132-authRole",
@@ -9,7 +33,7 @@
       "UnauthRoleName": "amplify-medicalsheetdigitiza-staging-41132-unauthRole",
       "StackName": "amplify-medicalsheetdigitiza-staging-41132",
       "StackId": "arn:aws:cloudformation:us-east-1:191214792052:stack/amplify-medicalsheetdigitiza-staging-41132/36522d10-7f27-11ec-9682-0a6a01519159",
-      "AmplifyAppId": "d2hz8ep435r64b",
+      "AmplifyAppId": "d2k5amxowlyerw",
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-medicalsheetdigitiza-staging-41132-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {

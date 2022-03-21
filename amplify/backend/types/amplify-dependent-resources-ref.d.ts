@@ -1,33 +1,27 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "medicalsheetdigitizab4dd08dd": {
+        "medsheetsapp9180d3a5": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
+            "AppClientID": "string",
+            "CreatedSNSRole": "string"
+        }
+    },
+    "function": {
+        "S3Trigger5fffb20b": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     },
     "storage": {
         "imagestorage": {
             "BucketName": "string",
-            "Region": "string"
-        }
-    },
-    "api": {
-        "MedicalSheetDigitizationApp": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "function": {
-        "MedicalSheetDigitizationAppPostConfirmation": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
             "Region": "string"
         }
     }
