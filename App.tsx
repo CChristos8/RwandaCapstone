@@ -244,13 +244,13 @@ const savePhoto = () => {
           <TouchableOpacity
             onPress={__startCamera}
             style={{
-              width: 130,
+              width: 150,
               borderRadius: 4,
-              backgroundColor: '#14git 274e',
+              backgroundColor: '#050A30',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 40
+              height: 50
             }}
           >
             
@@ -341,7 +341,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_pr
             
             <TouchableOpacity
               //onPress={savePhoto && update_progress}
-              onPress={uploadImageToS3} //() => { savePhoto; update_progress }}  
+              onPress={ImageUploadS3} //() => { savePhoto; update_progress }}  
               style={{
                 width: 130,
                 height: 40,
