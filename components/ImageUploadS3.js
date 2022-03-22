@@ -11,7 +11,6 @@ import {
 	Dimensions,
 	FlatList,
 	TouchableOpacity,
-	Alert
 } from 'react-native'
 import { useEffect, useState } from 'react'
 import * as ImagePicker from "expo-image-picker";
