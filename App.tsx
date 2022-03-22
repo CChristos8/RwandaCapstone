@@ -1,7 +1,8 @@
 import {setStatusBarTranslucent, StatusBar} from 'expo-status-bar'
 import React from 'react'
 
-import { StyleSheet, Text, View, TouchableOpacity, Alert, ImageBackground, Image} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Pressable, Alert, ImageBackground, Image} from 'react-native'
+import { createStackNavigator } from '@react-navigation/stack';
 import {Camera} from 'expo-camera'
 import { useEffect, useState } from 'react'
 import Amplify, { photoPlaceholder, Storage } from 'aws-amplify'
@@ -16,7 +17,8 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 // Get the aws resources configuration parameters
 import config from './src/aws-exports'; // if you are using Amplify CLI
 import ImageUploadS3 from './components/ImageUploadS3'
-
+import Test from './components/AppLoader'
+import { NavigationContainer } from '@react-navigation/native';
 //Amplify.configure(config)
 
 //Try to get rid of unhandled promise rejection
@@ -38,7 +40,7 @@ import uploadImageToS3 from './components/ImageUploadS3';
 let camera: Camera
 
 
-function App() {
+function Home({navigation}) {
   const [startCamera, setStartCamera] = React.useState(false)
   const [previewVisible, setPreviewVisible] = React.useState(false)
   const [capturedImage, setCapturedImage] = React.useState<any>(null)
@@ -125,6 +127,7 @@ const savePhoto = () => {
   // }
   
   return (
+    
     <>
     <View style={styles.container}>
       {startCamera ? (
@@ -370,4 +373,28 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_pr
   ) 
 }
 
+  function Conference({navigation}) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Conference Details</Text>
+      </View>
+    );
+  }
+  
+ 
+const Stack = createStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={ImageUploadS3} />
+        <Stack.Screen name="Conference" component={Conference} />
+        <Stack.Screen name="Patient Identifier" component= {Test} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 export default withAuthenticator(App, {includeGreetings: true});
+
