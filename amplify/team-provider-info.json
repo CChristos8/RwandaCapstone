@@ -18,7 +18,7 @@
       "function": {
         "S3Trigger5fffb20b": {
           "deploymentBucketName": "amplify-medsheetsapp-dev-164126-deployment",
-          "s3Key": "amplify-builds/S3Trigger5fffb20b-5048477065674a5a5071-build.zip"
+          "s3Key": "amplify-builds/S3Trigger5fffb20b-4d35586a454e756e704a-build.zip"
         }
       }
     }

@@ -29,8 +29,8 @@ Amplify.configure({
   },
 });
 
-import uploadResource from './components/uploadResource';
-import uploadImageToS3 from './components/ImageUploadS3';
+//import uploadResource from './components/uploadResource';
+//import uploadImageToS3 from './components/ImageUploadS3';
 
 //import '@aws-amplify/ui-react/styles.css'
 //import { AmplifyProvider } from '@aws-amplify/ui-react'
@@ -70,11 +70,14 @@ function Home({navigation}) {
     setPreviewVisible(true)
     //setStartCamera(false)
     setCapturedImage(photo)
+    console.log("Photo" + photo)
     const capturedImage = photo
     //console.log(capturedImage)
     }
     catch(error) {console.error(error) }
   }
+  	// Upload an image to S3
+	
 
 
   const __retakePicture = () => {
@@ -96,8 +99,91 @@ function Home({navigation}) {
 const savePhoto = () => {
 //<ImageUploadS3 
  //temp = {this.uploadImageToS3}/>
+//  setisLoading(true)  // happens before upload resource try to add a sleep in react? 
+//     uploadResource(capturedImage)
+//     setisLoading(false) //if upload occurs, then set loading to false
+//     setCapturedImage(null)
+//     setPreviewVisible(false)
+//     setStartCamera(false)
+//     Alert.alert("Your photo was saved!")
 }
+
+const uploadImageToS3 = async uri => {
+  console.log("in uploadImageToS3")
+  console.log("uri", uri.uri)
+  const response = await fetch(uri.uri)
+  console.log("response" + response)
+  const blob = await response.blob() // format the data for images 
+  console.log("blob" + blob)
+  // generate a unique random name for every single image 'fixed length'
+  //const [password] = useState(0)
+  //var name = prompt("What is your name", "Type you name here");
+  //alert("Hi " + name + "\nHope you are enjoying JavaScript!");
+  //var password = set.State(Alert.prompt("Enter patient identifier"))
+  //console.log("password", password)
+  
+  const selection = await new Promise((resolve) => {
+    Alert.prompt(
+    'Enter patient identifier',
+    "Don't forget to add A at the end for anesthesia record and _ for _record",
+    [
+      {text: "Record 1",
+      onPress: (password) => resolve(password +"A")
+    },
     
+      {
+      text: 'Record 2',
+      onPress: (password) => resolve(password + "B") //console.log('OK Pressed, patient identifier: ' + password)
+      //filename = password + '.jpeg'
+      },
+      {text: "cancel", 
+      onPress: () => console.log("cancelled")}
+    ],
+    'plain-text'
+         )
+  })
+    //console.log("selection" , selection)
+  
+    // if (selection) {
+    //   this.setState({ userSelection: selection });
+    // }
+  console.log("Selection:" + selection)
+  var date = new Date().getDate();
+  var month = new Date().getMonth() + 1;
+  var year = new Date().getFullYear();
+  //console.log(allPatients)
+  const folder = 'images' + "/" + selection.slice(0,-1)	
+  console.log("Folder" + folder)
+  //filename will have the patientIdentifier_A or B_date-month-year
+  const filename = selection + "-" + date + "-" + month + "-" + year+ '.jpeg' //Math.random().toString(18).slice(3).substr(0, 10) + '.jpeg'
+  console.log("filename" , filename)
+  //console.log("patients",allPatients )
+  await Storage.put(folder + '/' + filename, blob, {
+    progressCallback(progress) {
+      const prog = parseInt(progress.loaded/progress.total*100)
+      console.log(prog+"%");
+      if (prog == 100){
+
+        Alert.alert(
+          "Image Uploaded Successfully",
+          "",
+          [
+            
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ]
+          );
+      }
+      },
+    contentType: 'image/jpeg',
+    level: 'public'
+  })
+    .then(() => {
+      // every time a new image is added, we call all the items again
+      //this.fetchImages('images/', { level: "public" })
+    })
+    .catch(err => console.log(err))
+  Alert.alert("Image was successfully uploaded!")
+  }
 
   const __switchCamera = () => {
     if (cameraType === 'back') {
@@ -138,7 +224,7 @@ const savePhoto = () => {
           }}
         >
           {previewVisible && capturedImage ? (
-            <CameraPreview photo={capturedImage} savePhoto={savePhoto} retakePicture={__retakePicture} />
+            <CameraPreview photo={capturedImage} uploadImageToS3={uploadImageToS3(capturedImage)} retakePicture={__retakePicture} />
           ) : (
             <Camera
               type={cameraType}
@@ -249,7 +335,7 @@ const savePhoto = () => {
             style={{
               width: 150,
               borderRadius: 4,
-              backgroundColor: '#050A30',
+              backgroundColor: '#00094B',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
@@ -289,7 +375,7 @@ const styles = StyleSheet.create({
 })
 
 
-const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_progress}: any) => {
+const CameraPreview = ({photo, retakePicture,uploadImageToS3, _takePicture, update_progress}: any) => {
   console.log('sdsfds', photo)
   const percentage =.1
   return (
@@ -344,7 +430,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, _takePicture, update_pr
             
             <TouchableOpacity
               //onPress={savePhoto && update_progress}
-              onPress={ImageUploadS3} //() => { savePhoto; update_progress }}  
+              onPress={uploadImageToS3} //() => { savePhoto; update_progress }}  ImageUploadS3
               style={{
                 width: 130,
                 height: 40,
@@ -388,6 +474,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Take Picture" component={Home} />
         <Stack.Screen name="Home" component={ImageUploadS3} />
         <Stack.Screen name="Conference" component={Conference} />
         <Stack.Screen name="Patient Identifier" component= {Test} />
