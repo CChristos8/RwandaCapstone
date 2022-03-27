@@ -43,7 +43,8 @@ export default class ImageUploadS3 extends React.Component {
 	state = {
 		image: null,
 		allImages: [],
-		allPatients: []
+		allPatients: [], 
+		navigation: this.props.navigation
 
 	}
 
@@ -126,12 +127,11 @@ export default class ImageUploadS3 extends React.Component {
 				this.fetchImages('images/', { level: "public" })
 			})
 			.catch(err => console.log(err))
-		Alert.alert("Image was successfully uploaded!")
 		}
 
 
 	fetchFolderNames = async (path,access) => {
-		console.log("in new fucntion")
+		console.log("in new function")
 		//fetch all files
 		this.allImages = await this.fetchImages('images/', { level: "public" })
 		//console.log("images", this.state.allImages)
@@ -294,7 +294,7 @@ export default class ImageUploadS3 extends React.Component {
 								<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 									<Button
 										temp = {item}
-				  						onPress={() => this.props.navigation.navigate('Patient Identifier', {params:{name:{item}}}
+				  						onPress={() => this.state.navigation.navigate('Patient Identifier', {params:{name:{item}}}
 										  )}
 										title = {item.item}
 				  						style={{ backgroundColor: 'plum', padding: 10, marginBottom: 10, marginTop: 10 }}
