@@ -36,6 +36,7 @@
     "react-native-alert-prompt": "^0.0.6",
     "react-native-aws3": "^0.0.9",
     "react-native-fs": "^2.19.0",
+    "react-native-gesture-handler": "^2.3.2",
     "react-native-image-picker": "^4.7.3",
     "react-native-image-progress": "^1.2.0",
     "react-native-paper": "^4.11.2",
