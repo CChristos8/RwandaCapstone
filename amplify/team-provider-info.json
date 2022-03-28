@@ -13,12 +13,13 @@
     },
     "categories": {
       "auth": {
-        "medsheetsapp9180d3a5": {}
+        "medsheetsapp9180d3a5": {},
+        "true": {}
       },
       "function": {
         "S3Trigger5fffb20b": {
           "deploymentBucketName": "amplify-medsheetsapp-dev-164126-deployment",
-          "s3Key": "amplify-builds/S3Trigger5fffb20b-5048477065674a5a5071-build.zip"
+          "s3Key": "amplify-builds/S3Trigger5fffb20b-75616534586d32314d6d-build.zip"
         }
       }
     }
